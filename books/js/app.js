@@ -3,49 +3,50 @@
 const show_books_button = document.querySelector("#show-books");
 const like_to_read = document.querySelector("#like-to-read");
 const like_to_read_list = document.querySelector("#like-to-read-list");
-const have_read_list = document.querySelector("have_read_list");
+const have_read_list = document.querySelector("#have-read-list");
 
 const formatBook = book => {
     let html = "";
     html += "<strong>" + book.title + "</strong>, ";
-    html += book.author;
+    html += `<i>${book.author}</i>`;
     return html;
 }
 
-// const formatUnReadBookList = () => {
-//     let html = "";
-//     for (const book of books) {
-//         html += "<li>" + formatBook(book);
-//         html += '<button id="book-read">Mark as read</button>' + "</li>";
-//     }
-//     return html;
-// }
-
-// const formatReadBookList = () => {
-//     let html = "";
-//     for (const book of readBooks) {
-//         html += "<li>" + formatBook(book);
-//     }
-//     return html;
-// }
-
 const formatLikeToReadBook = book => {
-    return formatBook(book) + '<button id="book-read">Mark as read</button>'
+    return formatBook(book) + `<button id="${book.isbn}">Mark as read</button>`;
+}
+
+const formatHaveReadBook = book => {
+    return formatBook(book);
 }
 
 const addBook = book => {
     const bookList = document.createElement('li');
+    bookList.setAttribute("id", book.isbn);
     bookList.innerHTML = formatLikeToReadBook(book);
     like_to_read_list.appendChild(bookList);
+}
+
+const addReadBook = book => {
+    const bookList = document.createElement('li');
+    bookList.setAttribute("id", book.isbn);
+    bookList.innerHTML = formatHaveReadBook(book);
+    have_read_list.appendChild(bookList);
+}
+
+const removeBook = isbn => {
+    console.log("I've been told to remove " + isbn);
+    for (const book of books) {
+        if (book.isbn === isbn) {
+            console.log("I've found the book to remove");
+        }
+    }
 }
 
 const addBooks = () => {
     for (const book of books) {
         addBook(book);
     }
-    // const bookList = document.createElement('li');
-    // bookList.innerHTML = formatUnReadBookList();
-    // like_to_read_list.appendChild(bookList);
 }
 
 const toggleBookList = (event) => {
@@ -62,6 +63,18 @@ const toggleBookList = (event) => {
 window.addEventListener('load', () => addBooks());
 show_books_button.addEventListener('click', () => toggleBookList(event));
 like_to_read.addEventListener('click', (event) => {
-    console.log(event.target.tagName);
-})
+    // relying on that we're setting isbn 10 numbers for all books
+    // I'm sure there's better ways of identfying what to remove
+    // and what not to remove
+    if (parseInt(event.target.id)) {
+        const parent = event.target.parentNode;
+        const grandParent = parent.parentNode;
+        grandParent.removeChild(parent);
 
+        for (const book of books) {
+            if (event.target.id === book.isbn) {
+                addReadBook(book);
+            }
+        }
+    }
+})
