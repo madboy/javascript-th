@@ -78,3 +78,32 @@ like_to_read.addEventListener('click', (event) => {
         }
     }
 })
+
+// Moving items around
+// listUl.addEventListener('click', (event) => {
+//   if (event.target.tagName == 'BUTTON' && event.target.className === 'remove') {
+//     let li = event.target.parentNode;
+//     let ul = li.parentNode;
+//     ul.removeChild(li);
+//   }
+                        
+//   if (event.target.tagName == 'BUTTON' && event.target.className === 'up') {
+//     let li = event.target.parentNode;
+//     let prev_li = li.previousElementSibling;
+//     let ul = li.parentNode;
+    
+//     if (prev_li) {
+//      ul.insertBefore(li, prev_li);
+//     }
+//   }
+
+//   if (event.target.tagName == 'BUTTON' && event.target.className === 'down') {
+//     let li = event.target.parentNode;
+//     let next_li = li.nextElementSibling;
+//     let ul = li.parentNode;
+    
+//     if (next_li) {
+//       ul.insertBefore(next_li, li);
+//     }
+//   }
+//  });

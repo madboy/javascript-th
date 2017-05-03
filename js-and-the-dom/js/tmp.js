@@ -57,4 +57,10 @@ for (const link of navLinks) {
  event.target.tagName -> NAME IN CAPS!
  element.parentNode node|element?
  element.removeChild()
+ previousSibling
+ previousElementSibling
+ nextElementSibling
+ node.insertBefore
+ parentNode.firstElementChild
+ parentNode.lastElementChild
 */
